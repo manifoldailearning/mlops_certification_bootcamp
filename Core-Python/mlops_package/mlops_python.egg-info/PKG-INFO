@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: mlops-python
+Version: 1.0
+Summary: MLOps Python Package
+Author: Nachiketh
+Author-email: nachiketh@manifoldailearning.in
+Requires-Python: >=3.8
+
+This package provides utilities for MLOps, including data loading, preprocessing, model training, and serialization.
