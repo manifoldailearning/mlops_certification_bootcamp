@@ -291,3 +291,76 @@ git push origin main
 - Keep your local repository clean and organized
 - Use pull requests for code review
 - Test changes before pushing to main branch
+
+## GitHub Authentication
+
+### Generating Personal Access Token (PAT)
+
+1. **Access GitHub Settings**:
+   - Log in to your GitHub account
+   - Click on your profile picture in the top-right corner
+   - Select "Settings" from the dropdown menu
+
+2. **Navigate to Developer Settings**:
+   - Scroll down to the bottom of the left sidebar
+   - Click on "Developer settings"
+
+3. **Create Personal Access Token**:
+   - Click on "Personal access tokens" → "Tokens (classic)"
+   - Click "Generate new token" → "Generate new token (classic)"
+   - Give your token a descriptive name
+   - Set expiration date (recommended: 30-90 days)
+   - Select required permissions:
+     - `content` - Full control of private repositories
+     - `workflow` - Update GitHub Action workflows
+     - `write:packages` - Upload packages to GitHub Package Registry
+     - `delete:packages` - Delete packages from GitHub Package Registry
+   - Click "Generate token"
+
+4. **Copy and Store Token**:
+   - Copy the generated token immediately
+   - Store it securely (GitHub won't show it again)
+   - Use it as your password when authenticating with Git
+
+### Using the Token
+
+#### Command Line Authentication
+```bash
+# When prompted for password, use the token instead
+git push origin main
+
+# Configure Git to use token for specific repository
+git remote set-url origin https://<token>@github.com/username/repository.git
+```
+
+#### Storing Token Securely
+```bash
+# Store token in Git credential manager
+git config --global credential.helper store
+
+# Or use credential manager cache (recommended)
+git config --global credential.helper cache
+git config --global credential.helper 'cache --timeout=3600'  # Cache for 1 hour
+```
+
+### Best Practices for Token Security
+- Never commit tokens to your repository
+- Use environment variables for tokens in scripts
+- Regularly rotate tokens (update every 30-90 days)
+- Use the minimum required permissions
+- Revoke tokens that are no longer needed
+- Store tokens in secure password managers
+- Use different tokens for different purposes
+- Monitor token usage in GitHub security settings
+
+### Troubleshooting Token Issues
+- If authentication fails:
+  1. Verify token hasn't expired
+  2. Check token permissions
+  3. Ensure token is being used correctly
+  4. Try generating a new token
+- If token is compromised:
+  1. Immediately revoke the token in GitHub settings
+  2. Generate a new token
+  3. Update all systems using the old token
+
