@@ -186,3 +186,108 @@ git rebase main
 - Use rebase for local feature branches
 - Always test your changes after rebasing
 - Keep commits small and focused when planning to rebase
+
+## Remote Repository Operations
+
+### Setting Up Remote Repository
+- `git remote -v` - List all remote repositories and their URLs
+- `git remote add <name> <url>` - Add a new remote repository
+- `git remote remove <name>` - Remove a remote repository
+- `git remote rename <old-name> <new-name>` - Rename a remote repository
+
+Example:
+```bash
+# Add a new remote repository
+git remote add origin https://github.com/username/repository.git
+
+# Verify remote repositories
+git remote -v
+```
+
+### Pushing Changes to Remote
+- `git push <remote> <branch>` - Push local branch to remote repository
+- `git push -u <remote> <branch>` - Push and set upstream tracking
+- `git push --force` - Force push changes (use with caution)
+- `git push --tags` - Push all tags to remote
+
+Example workflow:
+```bash
+# Push main branch to origin
+git push origin main
+
+# Push new branch and set upstream tracking
+git push -u origin feature/new-feature
+
+# Push all tags
+git push --tags
+```
+
+### Pulling Changes from Remote
+- `git pull <remote> <branch>` - Pull and merge changes from remote
+- `git fetch <remote>` - Fetch changes without merging
+- `git pull --rebase` - Pull and rebase instead of merge
+
+Example workflow:
+```bash
+# Pull latest changes from main branch
+git pull origin main
+
+# Fetch changes without merging
+git fetch origin
+
+# Pull and rebase instead of merge
+git pull --rebase origin main
+```
+
+### Managing Remote Branches
+- `git branch -r` - List remote branches
+- `git branch -a` - List all branches (local and remote)
+- `git checkout -b <branch> <remote>/<branch>` - Create local branch tracking remote branch
+- `git push <remote> --delete <branch>` - Delete remote branch
+
+Example workflow:
+```bash
+# List all remote branches
+git branch -r
+
+# Create local branch tracking remote branch
+git checkout -b feature/new-feature origin/feature/new-feature
+
+# Delete remote branch
+git push origin --delete old-feature
+```
+
+### Common Remote Operations
+
+#### Cloning a Repository
+```bash
+# Clone a repository
+git clone https://github.com/username/repository.git
+
+# Clone specific branch
+git clone -b <branch> https://github.com/username/repository.git
+```
+
+#### Updating Local Repository
+```bash
+# Fetch all changes from remote
+git fetch --all
+
+# Update local branch with remote changes
+git pull origin main
+
+# If there are conflicts, resolve them and then:
+git add .
+git commit -m "Resolve merge conflicts"
+git push origin main
+```
+
+#### Best Practices for Remote Operations
+- Always pull latest changes before starting new work
+- Use meaningful commit messages
+- Push changes frequently to avoid large merges
+- Use feature branches for new features
+- Never force push to shared branches
+- Keep your local repository clean and organized
+- Use pull requests for code review
+- Test changes before pushing to main branch
