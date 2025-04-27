@@ -104,3 +104,85 @@ git checkout feature/new-feature
 git add .
 git commit -m "Add new feature implementation"
 ```
+
+## Merging and Rebasing
+
+### Git Merge
+Merging combines the changes from one branch into another, creating a merge commit.
+
+#### Basic Merge Commands
+- `git merge <branch-name>` - Merge specified branch into current branch
+- `git merge --no-ff <branch-name>` - Create a merge commit even if fast-forward is possible
+- `git merge --abort` - Abort the current merge operation
+
+#### Merge Example Workflow
+```bash
+# Start from main branch
+git checkout main
+
+# Merge feature branch into main
+git merge feature/new-feature
+
+# If there are conflicts, resolve them and then:
+git add .
+git commit -m "Merge feature/new-feature into main"
+```
+
+### Git Rebase
+Rebasing moves or combines a sequence of commits to a new base commit, creating a linear history.
+
+#### Basic Rebase Commands
+- `git rebase <branch-name>` - Rebase current branch onto specified branch
+- `git rebase -i <commit-hash>` - Interactive rebase to modify commits
+- `git rebase --continue` - Continue rebase after resolving conflicts
+- `git rebase --abort` - Abort the current rebase operation
+
+#### Rebase Example Workflow
+```bash
+# Start from feature branch
+git checkout feature/new-feature
+
+# Rebase feature branch onto main
+git rebase main
+
+# If there are conflicts, resolve them and then:
+git add .
+git rebase --continue
+```
+
+### Merge vs Rebase Comparison
+
+#### When to Use Merge
+- When you want to preserve the complete history
+- When working on public branches (like main/master)
+- When multiple developers are working on the same branch
+
+#### When to Use Rebase
+- When you want a clean, linear project history
+- When working on local feature branches
+- Before merging a feature branch into main
+
+#### Example Scenarios
+
+1. **Merge Scenario**:
+```bash
+# On main branch
+git checkout main
+git merge feature/new-feature
+# Creates a merge commit preserving both histories
+```
+
+2. **Rebase Scenario**:
+```bash
+# On feature branch
+git checkout feature/new-feature
+git rebase main
+# Creates a linear history by moving feature commits to the tip of main
+```
+
+#### Best Practices
+- Never rebase commits that have been pushed to a shared repository
+- Use merge for public branches
+- Use rebase for local feature branches
+- Always test your changes after rebasing
+- Keep commits small and focused when planning to rebase
