@@ -73,3 +73,34 @@ git commit -m "Initial commit with example files"
 # View commit history
 git log
 ```
+
+## Branching Operations
+
+### Branch Management
+- `git branch` - List all branches in the repository
+  - Current branch is marked with an asterisk (*)
+- `git branch <branch-name>` - Create a new branch
+  - Note: This command only creates the branch, it doesn't switch to it
+
+### Switching Branches
+- `git switch <branch-name>` - Switch to the specified branch (modern command)
+- `git checkout <branch-name>` - Switch to the specified branch (traditional command)
+  - Note: `git checkout` has multiple uses, while `git switch` is specifically for changing branches
+
+Example workflow:
+```bash
+# List all branches
+git branch
+
+# Create a new feature branch
+git branch feature/new-feature
+
+# Switch to the new branch
+git switch feature/new-feature
+# or
+git checkout feature/new-feature
+
+# Make changes and commit them
+git add .
+git commit -m "Add new feature implementation"
+```
