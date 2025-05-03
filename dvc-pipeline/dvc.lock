@@ -1,0 +1,42 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python src/preprocess.py data/raw.csv data/processed.csv
+    deps:
+    - path: data/raw.csv
+      hash: md5
+      md5: 8bdb790445be29279fa7502c0fc900a6
+      size: 76
+    - path: src/preprocess.py
+      hash: md5
+      md5: 3b706b6ed6d13a517b1242db6cc3e155
+      size: 424
+    outs:
+    - path: data/processed.csv
+      hash: md5
+      md5: 1c4695dce01bf5dab2675bd10867fff2
+      size: 73
+  train_model:
+    cmd: python src/train.py data/processed.csv models/model.pkl metrics/score.txt
+    deps:
+    - path: data/processed.csv
+      hash: md5
+      md5: 1c4695dce01bf5dab2675bd10867fff2
+      size: 73
+    - path: src/train.py
+      hash: md5
+      md5: 5b2ee0a5a2a7ab98191ba1fac7a67c14
+      size: 847
+    params:
+      params.yaml:
+        train.features: age
+        train.target: salary
+    outs:
+    - path: metrics/score.txt
+      hash: md5
+      md5: a19da8d436b23313d2dbc0c5e9231ecf
+      size: 29
+    - path: models/model.pkl
+      hash: md5
+      md5: 6c40b833eecd1464db323f72bf9723fa
+      size: 511
