@@ -180,3 +180,28 @@ dvc metrics
    # Update tracking
    dvc update
    ```
+
+
+# Push to Repo:
+
+```
+dvc remote add -d registry s3://dvcdemo-nachiketh/
+dvc push -r registry
+
+git tag best_model_v1
+git push origin best_model_v1
+```
+
+# New System
+# Pull model from Registry
+
+```
+git clone https://github.com/your-user/your-repo.git
+cd dvc_model_registry_demo
+
+# Checkout the best model tag
+git checkout best_model_v1
+
+# Pull model from registry
+dvc pull -r registry models/model.pkl
+```
