@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>FastAPI + Redis Demo</title></head>
+<body>
+    <h1>FastAPI + Redis Docker Compose Demo</h1>
+    <button onclick="fetchCount()">Hit API</button>
+    <p id="output">Click the button to hit the API.</p>
+    <script>
+        function fetchCount() {
+            fetch("http://localhost:8000/")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("output").innerText = data.message;
+                });
+        }
+    </script>
+</body>
+</html>
