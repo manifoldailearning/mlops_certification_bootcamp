@@ -1,0 +1,3 @@
+train:
+  features: age
+  target: salary
