@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sepal Length Predictor V2</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 1.1em;
+            margin-right: 10px;
+            color: #555;
+        }
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #predictionResult {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+            min-height: 30px; /* To prevent layout shift */
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Iris Flower Prediction V1</h1>
+        <div>
+            <label for="sepalLength">Sepal Length (cm):</label>
+            <input type="number" id="sepalLength" name="sepalLength" step="0.1" placeholder="e.g., 5.1" required>
+        </div>
+        <button onclick="predictSepalLength()">Predict</button>
+        <div id="predictionResult"></div>
+    </div>
+
+    <script>
+        async function predictSepalLength() {
+            const sepalLengthInput = document.getElementById('sepalLength');
+            const predictionResultDiv = document.getElementById('predictionResult');
+            predictionResultDiv.textContent = ''; // Clear previous results
+            predictionResultDiv.classList.remove('error');
+
+            const sepalLength = parseFloat(sepalLengthInput.value);
+
+            if (isNaN(sepalLength) || sepalLength <= 0) {
+                predictionResultDiv.textContent = 'Please enter a valid positive number for sepal length.';
+                predictionResultDiv.classList.add('error');
+                return;
+            }
+
+            // This data structure matches your FastAPI Iris model
+            const data = {
+                sepal_length: sepalLength
+            };
+
+            try {
+                // Make sure your FastAPI server is running on http://localhost:8000, below is changed so that it can be run in single docker container
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ detail: 'Unknown server error or non-JSON error response' }));
+                    // FastAPI validation errors (422) often have a 'detail' field.
+                    let errorMessage = `HTTP error! status: ${response.status}`;
+                    if (errorData && errorData.detail) {
+                        if (Array.isArray(errorData.detail)) { // Standard FastAPI validation error
+                           errorMessage += errorData.detail.map(err => ` ${err.loc[1]}: ${err.msg}`).join(';');
+                        } else { // Other error messages in detail (e.g. string)
+                            errorMessage += `: ${errorData.detail}`;
+                        }
+                    } else if (response.statusText) {
+                        errorMessage += `: ${response.statusText}`;
+                    }
+                    throw new Error(errorMessage);
+                }
+
+                const result = await response.json();
+
+                // This checks for the "prediction" key in the response from your FastAPI
+                if (result && result.prediction !== undefined) {
+                     predictionResultDiv.textContent = 'Prediction: ' + result.prediction;
+                } else {
+                    console.log('Unexpected response format:', result);
+                    predictionResultDiv.textContent = 'Received an unexpected response format from the server.';
+                    predictionResultDiv.classList.add('error');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                predictionResultDiv.textContent = 'Error: ' + error.message;
+                predictionResultDiv.classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>
