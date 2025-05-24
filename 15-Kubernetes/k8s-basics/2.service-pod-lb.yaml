@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mlops-pod
+  labels:
+    app: mlops-app
+
+spec:
+  containers:
+    - name: mlops-container
+      image: manifoldailearning/mid-program-project-demo:latest
+      ports:
+        - containerPort: 7860
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mlops-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: mlops-app
+  ports:
+    - protocol: TCP
+      port: 7861 # port of the services
+      targetPort: 7860 # Port of the container
