@@ -55,3 +55,13 @@ kubectl delete svc <svcname> -n <my-namespace>  # delete a svc in specified name
 kubectl delete svc -l env=test                  # delete svc matching labels
 kubectl delete svc --all                        # delete all svc
 ```
+
+# Deployments
+
+```
+kubectl apply -f deployments.yaml
+kubectl get deploy 
+kubectl describe deploy <deployment>  
+kubectl scale --replicas=x deploy <deployment> 
+kubectl delete deploy <deployment> 
+```
