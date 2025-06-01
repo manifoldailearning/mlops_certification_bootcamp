@@ -65,3 +65,13 @@ kubectl describe deploy <deployment>
 kubectl scale --replicas=x deploy <deployment> 
 kubectl delete deploy <deployment> 
 ```
+
+# Namespace
+```
+kubectl get ns
+kubectl apply -f 4.namespace.yaml
+kubectl apply -f 4-1.namespace-resource.yaml
+kubectl get po -n mlops-namespace
+kubectl get deployment -n mlops-namespace
+kubectl delete ns mlops-namespace
+```
