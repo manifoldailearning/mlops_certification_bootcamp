@@ -75,3 +75,16 @@ kubectl get po -n mlops-namespace
 kubectl get deployment -n mlops-namespace
 kubectl delete ns mlops-namespace
 ```
+
+# HPA
+```
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+kubectl patch deployment metrics-server -n kube-system \
+  --type='json' \
+  -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--kubelet-insecure-tls"}]'
+
+kubectl apply -f hpa-cpu.yaml
+kubectl get po -w # install hey package in your system- brew install hey
+hey -z 60s -c 20000 http://localhost:30080/
+```

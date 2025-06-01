@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlops-deployment
+
+# This is a deployment that manages the pods
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlops-app-deployment #Which pods to manage
+  template: # Individual pod information
+    metadata:
+      labels:
+        app: mlops-app-deployment # Labels for the pod
+    spec: # Container information
+      # This is the container that will be created in the pod
+      containers:
+        - name: mlops-container
+          image: manifoldailearning/mid-program-project-demo:latest
+          ports:
+            - containerPort: 7860
+          resources:
+            requests:
+              cpu: "100m" # Request 100 milliCPU
+              memory: "128Mi" # Request 128 MiB of memory
+            limits:
+              cpu: "500m" # Limit to 500 milliCPU
+              memory: "512Mi" # Limit to 512 MiB of memory
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mlops-service
+spec:
+  type: NodePort
+  selector:
+    app: mlops-app
+  ports:
+    - protocol: TCP
+      port: 7861 # port of the services
+      targetPort: 7860 # Port of the container
+      nodePort: 30080 # Port of the node
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: mlops-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mlops-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 10 # Target average CPU utilization across all pods
