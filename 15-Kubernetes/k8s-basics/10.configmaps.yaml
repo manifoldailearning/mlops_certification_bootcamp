@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demomap2
+data:
+  shortname: NM
+  longname: "Nachiketh Murthy"

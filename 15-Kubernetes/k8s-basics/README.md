@@ -88,3 +88,12 @@ kubectl apply -f hpa-cpu.yaml
 kubectl get po -w # install hey package in your system- brew install hey
 hey -z 60s -c 20000 http://localhost:30080/
 ```
+
+# ConfigMaps
+
+```bash
+kubectl create configmap demomap1 --from-literal shortname=NM --from-literal longname="Nachiketh Murthy"
+
+kubectl apply -f 11.pod-configmaps.yaml
+kubectl logs demo-pod
+```

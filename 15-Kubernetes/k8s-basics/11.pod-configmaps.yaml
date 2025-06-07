@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  containers:
+    - name: demo-container
+      image: busybox
+      command: ["/bin/sh", "-c", "echo $$shortname $$longname"]
+      env:
+        - name: shortname
+          valueFrom:
+            configMapKeyRef:
+              name: demomap2
+              key: shortname
+        - name: longname
+          valueFrom:
+            configMapKeyRef:
+              name: demomap2
+              key: longname
