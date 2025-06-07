@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: mlops-daemonset
+
+spec:
+  selector:
+    matchLabels:
+      app: mlops-app-daemonset # Which pods to manage
+  template: # Individual pod information
+    metadata:
+      labels:
+        app: mlops-app-daemonset # Labels for the pod
+    spec: # Container information
+      containers:
+        - name: mlops-container
+          image: manifoldailearning/mid-program-project-demo:latest
+          ports:
+            - containerPort: 7860
+          resources:
+            requests:
+              cpu: "100m" # Request 100 milliCPU
+              memory: "128Mi" # Request 128 MiB of memory
+            limits:
+              cpu: "500m" # Limit to 500 milliCPU
+              memory: "512Mi" # Limit to 512 MiB of memory

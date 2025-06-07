@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  volumes:
+    - name: demo-volume
+      persistentVolumeClaim:
+        claimName: demo-pvc
+  containers:
+    - name: demo-container
+      image: busybox
+      command: ["/bin/sh", "-c", "while true; do echo 'Hello, Kubernetes!' > /mnt/data/hello.txt; sleep 5; done"]
+      volumeMounts:
+        - name: demo-volume
+          mountPath: /mnt/data
