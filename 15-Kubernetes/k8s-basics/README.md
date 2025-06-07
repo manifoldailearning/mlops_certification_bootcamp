@@ -96,4 +96,6 @@ kubectl create configmap demomap1 --from-literal shortname=NM --from-literal lon
 
 kubectl apply -f 11.pod-configmaps.yaml
 kubectl logs demo-pod
+
+kubectl create configmap env-config --from-file=.env
 ```
