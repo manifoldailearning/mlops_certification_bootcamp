@@ -1,0 +1,15 @@
+torch
+transformers
+peft
+datasets
+accelerate
+bitsandbytes
+wandb 
+tqdm
+numpy
+pandas
+scikit-learn
+fastapi
+uvicorn
+pydantic
+python-dotenv

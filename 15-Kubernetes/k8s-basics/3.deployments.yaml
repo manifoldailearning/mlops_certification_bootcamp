@@ -9,11 +9,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: mlops-app-deployment #Which pods to manage
+      app: mlops-app #Which pods to manage
   template: # Individual pod information
     metadata:
       labels:
-        app: mlops-app-deployment # Labels for the pod
+        app: mlops-app # Labels for the pod
     spec: # Container information
       # This is the container that will be created in the pod
       containers:

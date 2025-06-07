@@ -1,0 +1,12 @@
+{
+  "input": [
+    "What is Machine Learning?",
+    "Explain the concept of Neural Networks.",
+    "What is the difference between supervised and unsupervised learning?"
+  ],
+  "output": [
+    "Machine Learning is a subset of artificial intelligence that focuses on building systems that learn from data.",
+    "Neural Networks are computational models inspired by the human brain, consisting of interconnected nodes (neurons) that process data.",
+    "Supervised learning uses labeled data to train models, while unsupervised learning uses unlabeled data to find patterns or groupings."
+  ]
+}

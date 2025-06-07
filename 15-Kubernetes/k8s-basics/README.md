@@ -99,3 +99,12 @@ kubectl logs demo-pod
 
 kubectl create configmap env-config --from-file=.env
 ```
+
+# Kubernetes Secrets
+
+```bash
+kubectl create secret generic demo-secret2 \
+  --from-literal=USERNAME=admin \
+  --from-literal=PASSWORD=S3cr3t@123
+
+```

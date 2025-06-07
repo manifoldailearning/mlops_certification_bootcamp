@@ -1,0 +1,15 @@
+{"time":"2025-06-01T09:42:21.419589+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/Users/nachikethpro/Desktop/author-repo/lora-project-demo/wandb/offline-run-20250601_094221-l871dtzd/logs/debug-core.log"}
+{"time":"2025-06-01T09:42:22.135632+05:30","level":"WARN","msg":"GraphQL client is nil, skipping feature loading"}
+{"time":"2025-06-01T09:42:22.135872+05:30","level":"INFO","msg":"created new stream","id":"l871dtzd"}
+{"time":"2025-06-01T09:42:22.135901+05:30","level":"INFO","msg":"stream: started","id":"l871dtzd"}
+{"time":"2025-06-01T09:42:22.135959+05:30","level":"INFO","msg":"handler: started","stream_id":"l871dtzd"}
+{"time":"2025-06-01T09:42:22.135988+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"l871dtzd"}
+{"time":"2025-06-01T09:42:22.136004+05:30","level":"INFO","msg":"sender: started","stream_id":"l871dtzd"}
+{"time":"2025-06-01T09:42:22.138783+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-06-01T09:42:37.187774+05:30","level":"INFO","msg":"stream: closing","id":"l871dtzd"}
+{"time":"2025-06-01T09:42:37.187846+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-06-01T09:42:37.188225+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-06-01T09:42:37.189587+05:30","level":"INFO","msg":"handler: closed","stream_id":"l871dtzd"}
+{"time":"2025-06-01T09:42:37.189738+05:30","level":"INFO","msg":"sender: closed","stream_id":"l871dtzd"}
+{"time":"2025-06-01T09:42:37.189837+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"l871dtzd"}
+{"time":"2025-06-01T09:42:37.189965+05:30","level":"INFO","msg":"stream: closed","id":"l871dtzd"}

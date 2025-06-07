@@ -1,0 +1,80 @@
+name: Build and Deploy to EKS
+
+on:
+  push:
+    branches: [main]
+
+env:
+  IMAGE_TAG: latest
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set IMAGE_URI
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          IMAGE_URI="$ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        run: docker build -t $IMAGE_URI .
+
+      - name: Push Docker image to ECR
+        run: docker push $IMAGE_URI
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.29.0'
+
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --region ${{ secrets.EKS_CLUSTER_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+
+      - name: Recreate .env from GitHub Secret
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+
+      - name: Create/Update ConfigMap from .env
+        run: |
+          kubectl create configmap lora-config --from-env-file=.env --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Inject image URI into manifest
+        run: |
+          envsubst < kube-deployment.yaml > kube-deployment-final.yaml
+
+      - name: Apply deployment
+        run: |
+          kubectl apply -f kube-deployment-final.yaml
+
+      - name: Verify rollout
+        run: |
+          kubectl rollout status deployment/lora-inference  

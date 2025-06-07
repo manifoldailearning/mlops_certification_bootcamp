@@ -1,0 +1,43 @@
+{
+  "os": "macOS-15.5-arm64-arm-64bit",
+  "python": "CPython 3.11.11",
+  "startedAt": "2025-06-01T04:12:21.396352Z",
+  "program": "/Users/nachikethpro/Desktop/author-repo/lora-project-demo/scripts/train.py",
+  "codePath": "scripts/train.py",
+  "git": {
+    "remote": "https://github.com/manifoldailearning/lora-demo.git",
+    "commit": "9e1a321dd9da67c87a872687a3b3d0336d3a153e"
+  },
+  "root": "/Users/nachikethpro/Desktop/author-repo/lora-project-demo",
+  "host": "leafvillage",
+  "executable": "/Users/nachikethpro/Desktop/author-repo/lora-project-demo/envs/bin/python",
+  "codePathLocal": "scripts/train.py",
+  "cpu_count": 10,
+  "cpu_count_logical": 10,
+  "disk": {
+    "/": {
+      "total": "994662584320",
+      "used": "977672429568"
+    },
+    "/System/Volumes/Data": {
+      "total": "994662584320",
+      "used": "977672429568"
+    }
+  },
+  "memory": {
+    "total": "17179869184"
+  },
+  "cpu": {
+    "count": 10,
+    "countLogical": 10
+  },
+  "apple": {
+    "name": "Apple M1 Pro",
+    "ecpuCores": 2,
+    "pcpuCores": 8,
+    "gpuCores": 16,
+    "memoryGb": 16,
+    "swapTotalBytes": "17179869184",
+    "ramTotalBytes": "17179869184"
+  }
+}

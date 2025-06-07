@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lora-inference
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lora-inference
+  template:
+    metadata:
+      labels:
+        app: lora-inference
+    spec:
+      containers:
+        - name: lora-inference
+          image: manifoldailearning/llm-lora:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: lora-config
+          volumeMounts:
+            - name: outputs-volume
+              mountPath: /app/outputs
+      volumes:
+        - name: outputs-volume
+          persistentVolumeClaim:
+            claimName: lora-outputs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lora-inference-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: lora-inference
+  ports:
+    - protocol: TCP
+      port: 8000 # port of the services
+      targetPort: 8000 # Port of the container
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lora-outputs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
