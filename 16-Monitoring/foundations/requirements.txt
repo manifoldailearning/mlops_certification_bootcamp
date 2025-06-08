@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+prometheus-client
+scipy
+pandas
+scikit-learn
+numpy
