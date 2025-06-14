@@ -67,7 +67,7 @@ docker build -t fast-api .
 echo "  - job_name: 'app'
     scrape_interval: 5s
     static_configs:
-      - targets: ['localhost:8005']" >> /etc/prometheus/prometheus.yml
+      - targets: ['localhost:8005']" | sudo tee -a /etc/prometheus/prometheus.yml > /dev/null
 
 docker run -d -p 8005:8005 fast-api
 
@@ -78,4 +78,5 @@ localhost:8005/metrics --> monitoring
 sudo service prometheus restart
 
 docker ps
+
 ```

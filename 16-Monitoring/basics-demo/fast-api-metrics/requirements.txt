@@ -1,2 +1,3 @@
 prometheus_fastapi_instrumentator
 fastapi[all]
+prometheus_client
