@@ -1,0 +1,15 @@
+artifact_uri: /Users/nachiketh/Desktop/author-repo/mlops_certification_bootcamp/17-MLFlow/mlruns/429055014358549739/68d53dd541ff4570a0f6405c78c9ae89/artifacts
+end_time: 1749917824910
+entry_point_name: ''
+experiment_id: '429055014358549739'
+lifecycle_stage: active
+run_id: 68d53dd541ff4570a0f6405c78c9ae89
+run_name: exultant-perch-483
+run_uuid: 68d53dd541ff4570a0f6405c78c9ae89
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749917822451
+status: 3
+tags: []
+user_id: nachiketh
