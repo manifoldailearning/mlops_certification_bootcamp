@@ -7,7 +7,8 @@ df['target'] = y
 
 df.to_csv('data/reference.csv', index=False)
 
-X2,y2 = make_classification(n_samples=500, n_features=5, n_classes=2, random_state=42,shift=0.6)
+#X2,y2 = make_classification(n_samples=500, n_features=5, n_classes=2, random_state=42,shift=0.8)
+X2,y2 = make_classification(n_samples=500, n_features=5, n_classes=2, random_state=42)
 df2 = pd.DataFrame(X2, columns=[f"feature_{i}" for i in range(5)])
 df2['target'] = y2
 
