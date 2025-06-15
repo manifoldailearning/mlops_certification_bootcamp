@@ -1,0 +1,13 @@
+aliases: []
+creation_timestamp: 1749997199111
+current_stage: Production
+description: ''
+last_updated_timestamp: 1749997281190
+name: diabetes_model
+run_id: 68d53dd541ff4570a0f6405c78c9ae89
+run_link: ''
+source: /Users/nachiketh/Desktop/author-repo/mlops_certification_bootcamp/17-MLFlow/mlruns/429055014358549739/68d53dd541ff4570a0f6405c78c9ae89/artifacts/model
+status: READY
+status_message: null
+user_id: null
+version: 1

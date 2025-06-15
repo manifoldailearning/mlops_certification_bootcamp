@@ -9,9 +9,11 @@ import pandas as pd
 # Load the diabetes dataset
 diabetes = load_diabetes()
 X = pd.DataFrame(diabetes.data, columns=diabetes.feature_names)
+print(X.columns)
 y = diabetes.target
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print(X_test.iloc[0])
 
 #set the tracking URI for MLflow
 mlflow.set_tracking_uri("http://localhost:5001")  
